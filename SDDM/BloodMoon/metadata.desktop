@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=BloodMoon
+Description=My First Theme
+Author=TonyDangermouse
+Type=sddm-theme
+Version=0.1
+Website=https://github.com/sddm/sddm
+Screenshot=BloodMoon.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Theme-Id=BloodMoon
+Theme-API=2.0
