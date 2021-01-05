@@ -27,3 +27,4 @@ general instructions (assuming you are using arco linux):
     
 
 There are pictures of these configs in action in the Wiki tab
+also, you can find the image i used as my desktop background in the SDDM folder, named 'background.jpg'
