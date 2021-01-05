@@ -25,3 +25,5 @@ general instructions (assuming you are using arco linux):
     you can preview this login screen by using the following command in your terminal:
     `$ sddm-greeter --test-mode --theme /usr/share/sddm/themes/BloodMoon/`
     
+
+There are pictures of these configs in action in the Wiki tab
