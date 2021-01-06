@@ -37,7 +37,7 @@ put the BloodMoon folder into one or both of the following directories:
 to turn on the theme, simply open your DE's version of the Appearance app, the BloodMoon theme should show up in the menu, select it, 		
 
 [if you use XFCE] (other DE's may have similar issues aswell, i don't know)
-from there, you're going to want to open the panel customization gui, navigate to the appearence tab, and turn off dark mode (i know, it doesn't really make sense)
+from there, you're going to want to open the panel customization gui, navigate to the appearence tab, and turn off dark mode (i know, it doesn't really make sense), this whole toggling dark mode for specific apps should work for any app who's gui is a white/red color sceme instead of the intended black/red
 
 ## misc info
 -There are pictures of these configs in action in the Wiki tab
