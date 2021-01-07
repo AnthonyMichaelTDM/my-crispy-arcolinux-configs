@@ -2,7 +2,10 @@
 the configs i use with my arcolinuxd install
 
 general instructions (assuming you are using arco linux):
-  
+
+## for the cursor theme
+but the BloodMoon-Cursor
+
 ## for the conky:
 put the file in the following directory: `/home/*user*/.config/conky/`
 
@@ -12,6 +15,17 @@ then, add the following line to the top of the .conky-list.txt file in the same 
 after that, in your terminal, do `$ conky-rotate -n` until the conky shows up, 
 
 after that you can use `$ conky-toggle` once or twice and it should then stay there, and autolaunch when you log in
+
+## for the cursor theme:
+but the BloodMoon-Cursor folder into one of the following directories
+
+-`/home/*user*/.icons/` if you only want one user to be able to use it
+
+-`/usr/share/.icons/` if you want all users (including root) to be able to use it
+
+from here enable to mouse theme just like you would for any other mouse theme, for example, xfce users can open Mouse and Touchpad app from the menu, and select it under the themes tab
+
+trouble shooting will likewise be the same as any other mouse theme, and depends on your DE among other things
     
 ## for the termite theme:
 simply put the file in the following directory: `/home/*user*/.config/termite/themes/`and you should then be able to select the theme with the Arcolinux Tweak Tool
