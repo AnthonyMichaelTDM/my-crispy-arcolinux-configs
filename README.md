@@ -26,6 +26,9 @@ but the BloodMoon-Cursor folder into one of the following directories
 from here enable to mouse theme just like you would for any other mouse theme, for example, xfce users can open Mouse and Touchpad app from the menu, and select it under the themes tab
 
 trouble shooting will likewise be the same as any other mouse theme, and depends on your DE among other things
+
+
+if you intend to modify the cursor theme, start by modifying the .png's in the source directory, once you've modified them to your liking, open your terminal, cd into the source directory, and execute the following command `make`, the rest should be handled automatically by the Makefile in the source directory
     
 ## for the termite theme:
 simply put the file in the following directory: `/home/*user*/.config/termite/themes/`and you should then be able to select the theme with the Arcolinux Tweak Tool
