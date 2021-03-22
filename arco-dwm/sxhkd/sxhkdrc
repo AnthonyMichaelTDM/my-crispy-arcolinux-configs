@@ -26,9 +26,9 @@ super + F4
 super + F5
     meld
 
-#MPV
+#Parole
 super + F6
-    mpv
+    parole
 
 #libre office
 super + F7
@@ -42,9 +42,9 @@ super + F8
 super + F9
     evolution
 
-#Spotify
+#Discord
 super + F10
-    spotify
+    discord
 
 #Rofi Fullscreen
 super + F11
@@ -197,7 +197,7 @@ ctrl + alt + r
 #ctrl + alt + s
 #   spotify
 
-#Termite
+#st
 ctrl + alt + Return
     st
 
