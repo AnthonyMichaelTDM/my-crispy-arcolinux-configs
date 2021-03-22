@@ -118,9 +118,10 @@ static Key keys[] = {
 	//{ MODKEY|ShiftMask,				XK_i,      setlayout,      {.v = &layouts[9]} }, /* centeredfloatingmaster */
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_p,      incrgaps,       {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_p,      incrgaps,       {.i = -1 } },
-	//[] 
+	{ MODKEY,              XK_p,            spawn,       SHCMD("parole -p") },
+	{ MODKEY,                       XK_bracketleft,  spawn,       SHCMD("parole -P") },
+	{ MODKEY,                       XK_bracketright, spawn,       SHCMD("parole -N") },
+	// '\'
  
 	//keyboard row 3
 	//a
@@ -150,7 +151,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },	
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_Up,     zoom,           {0} },
+
 
 	/*{ MODKEY,                       XK_Return, zoom,           {0} },*/
 	/*{ MODKEY,                       XK_Tab,    view,           {0} },*/
