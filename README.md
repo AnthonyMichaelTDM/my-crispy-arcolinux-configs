@@ -56,6 +56,17 @@ to turn on the theme, simply open your DE's version of the Appearance app, the B
 [if you use XFCE] (other DE's may have similar issues aswell, i don't know)
 from there, you're going to want to open the panel customization gui, navigate to the appearence tab, and turn off dark mode (i know, it doesn't really make sense), this whole toggling dark mode for specific apps should work for any app who's gui is a white/red color sceme instead of the intended black/red
 
+you can also modiyfy the settings.ini file in
+`/home/*user*/.config/gtk-3.0/`
+to set the theme manually, this also applies to the cursor theme
+
+## for the suckless programs (DWM, ST, SLStatus
+copy the folders into `home/*user*/.config/` then, cd into the directories and run the following commands: $ `make` and $ `sudo make clean install`
+then reboot, 
+you can also compare my files with your own using meld, or some other utility
+
+don't copy my autostart.sh file over your own unless you know what you're doing, same goes for the sxhk folder (which manages hotkeys on arco linux)
+
 ## misc info
 -There are pictures of these configs in action in the Wiki tab
 
