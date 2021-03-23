@@ -151,7 +151,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },	
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
-
+	{ MODKEY,                       XK_Up,     zoom,           {0} },
 
 	/*{ MODKEY,                       XK_Return, zoom,           {0} },*/
 	/*{ MODKEY,                       XK_Tab,    view,           {0} },*/
