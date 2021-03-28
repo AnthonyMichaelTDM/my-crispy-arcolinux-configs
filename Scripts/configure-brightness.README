@@ -5,7 +5,7 @@ works by directly modifying system files, and as such needs sudo perms, and shou
 made because xbacklight didn't work on my thinkpad
 
 usage:
-sudo -n bash {path to script}/brightness_script.sh {command} {argument}
+sudo -n {path to script}/brightness_script.sh {command} {argument}
 
 	{path to script} == the path to the directory containing the script
 	{command} == either '-inc', 'inc', or '-dec', 'dec'
@@ -18,3 +18,7 @@ do that by:
 creating a file with the path: /etc/sudoers.d/brightness
 with the following content
 yourusername ALL=(ALL) NOPASSWD:path/to/script
+
+
+also NOTE:
+the sxhkdrc in this repo (arco-dwm/sxhkd/sxhkdrc) has the path to the script hard coded in, you will need to change this if you plan on using said configs

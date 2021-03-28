@@ -125,8 +125,8 @@ super + KP_Enter
 #	dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
 
 #reload sxhkd: #removed because it disabled the entire keyboard
-#super + shift + s
-#	pkill -USR1 -x sxhkd
+super + shift + ctrl + s
+	pkill -USR1 -x sxhkd
 
 
 #################################################################
@@ -212,7 +212,6 @@ ctrl + alt + t
 #Xfce4-appfinder
 ctrl + alt + a
     xfce4-appfinder
-
 
 #Keyboard dependent
 #termite
@@ -310,6 +309,10 @@ Print
 ctrl + Print
      xfce4-screenshooter
 
+#screenshot a region
+super + shift + s
+     xfce4-screenshooter -r
+
 #Gnome-Screenshot
 #ctrl + shift + Print
 #     gnome-screenshot -i
@@ -330,11 +333,11 @@ ctrl + Print
 
 #Raises volume
 XF86AudioRaiseVolume
-    amixer set Master 10%+
+    amixer set Master 5%+
 
 #Lowers volume
 XF86AudioLowerVolume
-    amixer set Master 10%-
+    amixer set Master 5%-
 
 #Mute
 XF86AudioMute
@@ -367,11 +370,13 @@ XF86AudioStop
 
 #Brightness up
 XF86MonBrightnessUp
-    xbacklight -inc 10
+    sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh -inc 10
+    #xbacklight -inc 10
 
 #Brightness down
 XF86MonBrightnessDown
-    xbacklight -dec 10
+    sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh -dec 10
+    #xbacklight -dec 10
 
 
 #################################################################

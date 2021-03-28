@@ -34,7 +34,7 @@ sxhkd -c ~/.config/arco-dwm/sxhkd/sxhkdrc &
 feh --bg-fill /usr/share/backgrounds/arcolinux/BloodMoon.jpg &
 
 #run applications from startup
-
+run "slimbookbattery"
 #run "insync start"
 #run "spotify"
 #run "ckb-next -b"
