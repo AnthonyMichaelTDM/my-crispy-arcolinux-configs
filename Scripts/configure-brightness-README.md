@@ -7,11 +7,12 @@ made because xbacklight didn't work on my thinkpad
 usage:
 sudo -n {path to script}/brightness_script.sh {command} {argument}
 
-	{path to script} == the path to the directory containing the script
-	{command} == either '-inc', 'inc', or '-dec', 'dec'
+{path to script} == the path to the directory containing the script
+{command} == either '-inc', 'inc'; '-dec', 'dec'; or '-set','set'
 		-inc means the script will increase the brightness
 		-dec means the script will decrease the brightness
-	{argument} == an integer between 0 and 100 representing the percentage the brightness should increase / decrease by
+		-set means the script will set the brightness
+{argument} == an integer between 0 and 100 representing the percentage the brightness should increase by, decrease by, or be set to
 
 to bind this to a hotkey, (like i did), you must whitelist the script with sudoers
 do that by:
