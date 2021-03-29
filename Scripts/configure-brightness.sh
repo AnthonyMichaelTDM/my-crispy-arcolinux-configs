@@ -83,3 +83,5 @@ case $1 in
 	*) echo "invalid argument ${1}" ; exit 1;; 
 esac
 
+#exit the script
+exit 0
