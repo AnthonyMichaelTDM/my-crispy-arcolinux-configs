@@ -67,9 +67,13 @@ you can also compare my files with your own using meld, or some other utility
 
 don't copy my autostart.sh file over your own unless you know what you're doing, same goes for the sxhk folder (which manages hotkeys on arco linux)
 
+## for the scripts
+each script should have its own readme, read that for usage instructions, documentation, usage, etc.
+
 ## misc info
 -There are pictures of these configs in action in the Wiki tab
 
 -also, you can find the image i used as my desktop background in the SDDM folder, named 'background.jpg'
 
 -if you have any suggestions, feel free to let me know in the issues tab
+
