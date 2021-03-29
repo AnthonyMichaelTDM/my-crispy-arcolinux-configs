@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# author: Anthony Michael
 #changes the brightness of the monitor, either increases or decreases, by a passed percentage
 
 # command format. $ brightness $1 $2
