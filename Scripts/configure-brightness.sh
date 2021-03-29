@@ -3,8 +3,8 @@
 #changes the brightness of the monitor, either increases or decreases, by a passed percentage
 
 # command format. $ brightness $1 $2
-# $1 is either -inc or -dec, this will determine whether the brightness is increased or decreased
-# $2 is a number, which represents the percentage the brightness is increased / decreased by
+# $1 is either -inc, -dec, or -set this will determine whether the brightness is increased by, decreased by, or set to
+# $2 is a number, which represents the percentage the brightness is increased / decreased by, or set to
 
 # need: some logic to determine whether to increase or decrease
 #       some sort of catch, basically, something to make sure that $2 is a number
@@ -76,10 +76,24 @@ decreaseBrightness() {
 	bright
 }
 
+# set brightness to $2 %
+setBrightness() {
+	local postSetBrightness=$(( $(( maxBrightness*$change ))/100 ))
+	if ! [[ $postSetBrightness =~ ${numericRE} ]] ; then
+		newBrightness=curBrightness
+	elif [[ $((postSetBrightness - maxBrightness)) =~ ${numericRE} ]] ; then
+		newBrightness=curBrightness 
+	else 
+		newBrightness=postSetBrightness
+	fi
+	bright
+}
+
 #select the command
 case $1 in
-	-inc|inc) increaseBrightness;;
-	-dec|dec) decreaseBrightness;;
+	-inc|inc|+) increaseBrightness;;
+	-dec|dec|-) decreaseBrightness;;
+	-set|set|=) setBrightness;;
 	*) echo "invalid argument ${1}" ; exit 1;; 
 esac
 
