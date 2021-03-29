@@ -15,6 +15,11 @@
 #max brightness is stored in /sys/class/backlight/intel_backlight/max_brightness
 #current brightness is stored in /sys/class/backlight/intel_backlight/brightness
 
+#lock or something, prevents more than one instance of the script from running at the same time
+me="$(basename "$0")";
+running=$(ps h -C "$me" | grep -wv $$ | wc -l);
+[[ $running > 1 ]] && exit;
+
 #some directories
 pathToBacklight="/sys/class/backlight/intel_backlight/"
 #pathToBacklight="/home/ruby/backlight-tests/"
