@@ -369,12 +369,12 @@ XF86AudioStop
     playerctl stop
 
 #Brightness up
-XF86MonBrightnessUp
+@XF86MonBrightnessUp
     sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh -inc 10
     #xbacklight -inc 10
 
 #Brightness down
-XF86MonBrightnessDown
+@XF86MonBrightnessDown
     sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh -dec 10
     #xbacklight -dec 10
 

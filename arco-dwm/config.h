@@ -59,12 +59,25 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 #include "layouts.c"
-
+#include "fibonacci.c"
+#include "horizgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[]=",      tile },	/* first entry is default */
+	{ "|M|",      centeredmaster },
+	
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	
+	{ "[\\]",     dwindle },
+	{ "[@]",      spiral },
+	
+	{ "###",      horizgrid },
 	{ "HHH",      grid },
+
 	{ "[M]",      monocle },
+	{ ">M>",      centeredfloatingmaster },
+	
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
@@ -103,22 +116,24 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	
 	//keyboard row 2
-	{ MODKEY,		        		XK_Tab,    shiftview,	   {.i =  1 } },
-	{ MODKEY|ShiftMask,		        XK_Tab,	   shiftview,	   {.i = -1 } },
-	{ MODKEY,						XK_q,      killclient,     {0} },
-	//we
+	{ MODKEY,                       XK_Tab,    shiftview,	   {.i =  1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,	   shiftview,	   {.i = -1 } },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+	//w
+	{ MODKEY,                       XK_e,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_e,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
-	{ MODKEY,						XK_t,      setlayout,      {.v = &layouts[0]} }, /* tile */
-	{ MODKEY|ShiftMask,				XK_t,      setlayout,      {.v = &layouts[1]} }, /* spiral */
-	{ MODKEY,						XK_y,      setlayout,      {.v = &layouts[2]} }, /* dwindle */
-	{ MODKEY|ShiftMask,				XK_y,      setlayout,      {.v = &layouts[3]} }, /* deck */
-	//{ MODKEY,						XK_u,      setlayout,      {.v = &layouts[4]} }, /* bstack */
-	//{ MODKEY|ShiftMask,				XK_u,      setlayout,      {.v = &layouts[5]} }, /* grids */
-	//{ MODKEY,						XK_i,      setlayout,      {.v = &layouts[8]} }, /* centeredmaster */
-	//{ MODKEY|ShiftMask,				XK_i,      setlayout,      {.v = &layouts[9]} }, /* centeredfloatingmaster */
-	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY,              XK_p,            spawn,       SHCMD("parole -p") },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },  /* tile */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} },  /* centeredmaster */
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} },  /* bstack */
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} },  /* bstackhoriz */
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },  /* dwindle */
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[5]} },  /* spiral */
+	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[6]} },  /* horizgrid */
+	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[7]} },  /* grid */
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[8]} }, /* monocle */
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[9]} }, /* centeredfloatingmaster */
+	{ MODKEY,                       XK_p,            spawn,       SHCMD("parole -p") },
 	{ MODKEY,                       XK_bracketleft,  spawn,       SHCMD("parole -P") },
 	{ MODKEY,                       XK_bracketright, spawn,       SHCMD("parole -N") },
 	// '\'
@@ -130,8 +145,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = filecmd } },
 	{ MODKEY,                       XK_g,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },//removable
+	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },//removable
 	//l;'
 
 	//keyboard row 4 (and space bar + arrow keys)s
@@ -140,7 +155,7 @@ static Key keys[] = {
 	//v
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	//nm
-	{ MODKEY|ControlMask,			XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -151,6 +166,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },	
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Right,  rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Left,   rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_Up,     zoom,           {0} },
 
 	/*{ MODKEY,                       XK_Return, zoom,           {0} },*/

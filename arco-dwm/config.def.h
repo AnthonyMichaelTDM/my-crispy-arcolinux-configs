@@ -17,13 +17,13 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#6790EB";
+static const char col_red1[]        = "#db2d20";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_red1,  col_red1  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -59,12 +59,25 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 #include "layouts.c"
-
+#include "fibonacci.c"
+#include "horizgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[]=",      tile },	/* first entry is default */
+	{ "|M|",      centeredmaster },
+	
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	
+	{ "[\\]",     dwindle },
+	{ "[@]",      spiral },
+	
+	{ "###",      horizgrid },
 	{ "HHH",      grid },
+
 	{ "[M]",      monocle },
+	{ ">M>",      centeredfloatingmaster },
+	
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
@@ -82,10 +95,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_red1, "-sf", col_gray4, NULL };
 static const char *filecmd[]  = { "thunar", NULL };
 static const char *calendar[]  = { "gsimplecal", NULL };
 static const char *taskmanager[]  = { "xfce4-taskmanager", NULL };
+static const char *stcmd[] = {"st",NULL};
 
 #include "selfrestart.c"
 #include "shiftview.c"
@@ -93,47 +107,71 @@ static const char *taskmanager[]  = { "xfce4-taskmanager", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = filecmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	//keyboard row 1
+	//`
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	/*{ MODKEY,                       XK_Return, zoom,           {0} },*/
-	/*{ MODKEY,                       XK_Tab,    view,           {0} },*/
-	{ MODKEY|ShiftMask,				XK_q,      killclient,     {0} },
-	{ MODKEY,						XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ControlMask,			XK_comma,  cyclelayout,    {.i = -1 } },
+	
+	//keyboard row 2
+	{ MODKEY,                       XK_Tab,    shiftview,	   {.i =  1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,	   shiftview,	   {.i = -1 } },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+	//w
+	{ MODKEY,                       XK_e,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_e,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },  /* tile */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} },  /* centeredmaster */
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} },  /* bstack */
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} },  /* bstackhoriz */
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },  /* dwindle */
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[5]} },  /* spiral */
+	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[6]} },  /* horizgrid */
+	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[7]} },  /* grid */
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[8]} }, /* monocle */
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[9]} }, /* centeredfloatingmaster */
+	{ MODKEY,                       XK_p,            spawn,       SHCMD("parole -p") },
+	{ MODKEY,                       XK_bracketleft,  spawn,       SHCMD("parole -P") },
+	{ MODKEY,                       XK_bracketright, spawn,       SHCMD("parole -N") },
+	// '\'
+ 
+	//keyboard row 3
+	//a
+	{ MODKEY,                       XK_s,      spawn,          {.v = stcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = filecmd } },
+	{ MODKEY,                       XK_g,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },//removable
+	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },//removable
+	//l;'
+
+	//keyboard row 4 (and space bar + arrow keys)s
+	//zx
+	{ MODKEY,                       XK_c,      spawn,          SHCMD("st -e vim ~/.config/arco-dwm/config.h")}, /*open this config?*/
+	//v
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	//nm
+	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
-	{ MODKEY,                       XK_space,  cyclelayout,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
-	{ Mod1Mask|ControlMask,         XK_Right,  shiftview,      {.i =  1 } },
-	{ Mod1Mask|ControlMask,         XK_Left,   shiftview,      {.i = -1 } },
-	{ Mod1Mask|ControlMask,         XK_Up,     shiftview,      {.i =  1 } },
-	{ Mod1Mask|ControlMask,         XK_Down,   shiftview,      {.i = -1 } },	
-	{ Mod1Mask,						XK_Tab,    shiftview,      {.i =  1 } },
-	{ Mod1Mask|ShiftMask,	        XK_Tab,	   shiftview,	   {.i = -1 } },
-	{ MODKEY,		        		XK_Tab,    shiftview,	   {.i =  1 } },
-	{ MODKEY|ShiftMask,		        XK_Tab,	   shiftview,	   {.i = -1 } },
+
+	{ MODKEY,                       XK_space,  cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },	
+	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Right,  rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Left,   rotatestack,    {.i = -1 } },
+	{ MODKEY,                       XK_Up,     zoom,           {0} },
+
+	/*{ MODKEY,                       XK_Return, zoom,           {0} },*/
+	/*{ MODKEY,                       XK_Tab,    view,           {0} },*/
 
 
 	TAGKEYS(                        XK_1,                      0)
