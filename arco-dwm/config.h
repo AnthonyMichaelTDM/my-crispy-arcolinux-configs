@@ -136,7 +136,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,            spawn,       SHCMD("parole -p") },
 	{ MODKEY,                       XK_bracketleft,  spawn,       SHCMD("parole -P") },
 	{ MODKEY,                       XK_bracketright, spawn,       SHCMD("parole -N") },
-	// '\'
+	//switch between keyboard layouts
+	{ MODKEY,                       XK_backslash,    spawn,       SHCMD("setxkbmap -variant intl") },
+	{ MODKEY|ShiftMask,             XK_backslash,     spawn,       SHCMD("setxkbmap -variant euro") },
  
 	//keyboard row 3
 	//a
