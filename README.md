@@ -3,9 +3,6 @@ the configs i use with my arcolinuxd install
 
 general instructions (assuming you are using arco linux):
 
-## for the cursor theme
-but the BloodMoon-Cursor
-
 ## for the conky:
 put the file in the following directory: `/home/*user*/.config/conky/`
 
@@ -17,7 +14,7 @@ after that, in your terminal, do `$ conky-rotate -n` until the conky shows up,
 after that you can use `$ conky-toggle` once or twice and it should then stay there, and autolaunch when you log in
 
 ## for the cursor theme:
-but the BloodMoon-Cursor folder into one of the following directories
+put the BloodMoon-Cursor folder into one of the following directories
 
 -`/home/*user*/.icons/` if you only want one user to be able to use it
 
@@ -37,7 +34,7 @@ simply put the file in the following directory: `/home/*user*/.config/termite/th
 put the BloodMoon folder into the following directory: `/usr/share/SDDM/themes/`
 
 to select the theme, you're going to have to nano (or vim, or whatever) into the SDDM config file at the following file path: 
-`/usr/lib/sddm/sddm.conf.d/default.conf`
+`/etc/sddm.conf`
 
 once that file is opened, find the [Theme] section of the file, and change the line `Current=` (should be around line 33) to `Current=BloodMoon`
 
