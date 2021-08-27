@@ -1,0 +1,10 @@
+#personal aliases
+#alias brightness="sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh "
+
+#yt-dl stuff
+alias yta-mp3-playlist="youtube-dl --extract-audio --audio-format mp3 --yes-playlist "
+
+#vimrc
+alias vimrc="vim /etc/vimrc"
+#the vimrc where plugins are loaded
+alias vimrc-plugins="vim ~/.vimrc"

@@ -29,7 +29,6 @@ run "volumeicon"
 run slstatus &
 sxhkd -c ~/.config/arco-dwm/sxhkd/sxhkdrc &
 #run "nitrogen --restore"
-#run "conky -c $HOME/.config/arco-dwm/system-overview"
 #you can set wallpapers in themes as well
 feh --bg-fill /usr/share/backgrounds/arcolinux/BloodMoon.jpg &
 
