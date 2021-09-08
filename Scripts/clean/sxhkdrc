@@ -94,18 +94,18 @@ super + x
 #super + m
 #    pragha
 
-#Termite
+#urxvt
 super + Return
-    termite
+    urxvt
 
 #Xkill
 super + Escape
     xkill
 
 #Keyboard dependent
-#termite
+#urxvt
 super + KP_Enter
-	termite
+	urxvt
 
 #################################################################
 # SUPER + SHIFT KEYS
@@ -166,8 +166,8 @@ ctrl + alt + c
 #     firefox
 
 #Nitrogen
-ctrl + alt + i
-     nitrogen
+#ctrl + alt + i
+#     nitrogen
 
 #arcolinux-logout
 ctrl + alt + k
@@ -182,16 +182,16 @@ ctrl + alt + p
     pamac-manager
 
 #Xfce4-settings-manager
-ctrl + alt + m
-     xfce4-settings-manager
+#ctrl + alt + m
+#     xfce4-settings-manager
 
 #Pulse Audio Control
 ctrl + alt + u
      pavucontrol
 
 #Rofi theme selector
-ctrl + alt + r
-  rofi-theme-selector
+#ctrl + alt + r
+#  rofi-theme-selector
 
 #Spotify
 #ctrl + alt + s
@@ -201,22 +201,22 @@ ctrl + alt + r
 ctrl + alt + Return
     st
 
-#termite
+#urxvt
 ctrl + alt + t
-    termite
+    urxvt
 
 #Vivaldi
 #ctrl + alt + v
 #    vivaldi-stable
 
 #Xfce4-appfinder
-ctrl + alt + a
-    xfce4-appfinder
+#ctrl + alt + a
+#    xfce4-appfinder
 
 #Keyboard dependent
-#termite
+#urxvt
 #ctrl + alt + KP_Enter
-#     termite
+#     urxvt
 
 
 #################################################################
@@ -255,13 +255,13 @@ ctrl + alt + a
 #alt + Down
 #    variety --resume
 
-#Gmrun
+#Xfce4-appfinder
 #alt + F2
-#    gmrun
+#    xfce4-appfinder --collapsed
 
 #Xfce4-appfinder
-alt + F2
-    xfce4-appfinder
+#alt + F2
+#    xfce4-appfinder
 
 
 #################################################################
