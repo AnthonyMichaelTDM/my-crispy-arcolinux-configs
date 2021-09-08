@@ -15,9 +15,9 @@ readonly CONKY_TARGET
 readonly CONKY_LIST_DIR
 
 CURSOR_SOURCE="${CONFIG_DIRECTORY}Cursors/BloodMoon-Cursor/"
-readonly CURSOR_SOURCE_DIR
 CURSOR_TARGET="~/.icons/"
-readonly CURSOR_TARGET_DIR
+readonly CURSOR_SOURCE
+readonly CURSOR_TARGET
 
 TERMITE_SOURCE="${CONFIG_DIRECTORY}termite/BloodMoon.config"
 TERMITE_TARGET="~/.config/termite/themes/"
@@ -121,7 +121,7 @@ read -p "do you want to install the vim configs? y/n" -n 1 -r vimrcYN
 echo
 case $vimrcYN in
 	y|Y ) #install
-		cp $VIMRC_SOURCE $VIMRC_TARGET
+		sudo cp $VIMRC_SOURCE $VIMRC_TARGET
 		echo ;;
 	n|N ) #do not install
 		echo ;;
