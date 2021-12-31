@@ -40,7 +40,9 @@ once that file is opened, find the [Theme] section of the file, and change the l
 
 you can preview this login screen by using the following command in your terminal:
 `$ sddm-greeter --test-mode --theme /usr/share/sddm/themes/BloodMoon/`
-  
+
+NOTE: you need the qt5-quickcontrols2 package for BloodMoon-sugar-candy
+
 ## for the GTK theme:
 put the BloodMoon folder into one or both of the following directories:
 
