@@ -4,9 +4,6 @@ alias brightness="sudo -n /home/ruby/.bin/my-scripts/configure-brightness.sh"
 #yt-dl stuff
 alias yta-mp3-playlist="yt-dlp --extract-audio --audio-format mp3 --yes-playlist --embed-thumbnail --output '%(title)s.%(ext)s' --add-metadata "
 
-#ssh stuff
-alias github-ssh="eval \"$(ssh-agent -s)\" & ssh-add ~/.ssh/github"
-
 #vimrc
 alias vimrc="vim /etc/vimrc"
 #the vimrc where plugins are loaded
